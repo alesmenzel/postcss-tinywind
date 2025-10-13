@@ -1,6 +1,6 @@
 {
   "name": "@alesmenzel/postcss-tinywind",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PostCSS plugin to generate Tinywind classes.",
   "type": "module",
   "main": "./postcss-tinywind.js",
