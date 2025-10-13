@@ -16,11 +16,12 @@ describe('Default options', () => {
 }
 `,
       after: `\
-.flex {
+@layer utilities {.flex {
 	display: flex;
 }
 .flex-1 {
 	flex: 1;
+}
 }
 
 .btn {

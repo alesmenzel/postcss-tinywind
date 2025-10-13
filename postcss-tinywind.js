@@ -5,25 +5,41 @@ import path from "path"
 export const CONFIG_ID = 'tinywind'
 export const CONFIG_FILE_NAME = 'tinywind.config.js'
 
-const plugin = () => {
+let injectedOnce = false;
+
+const plugin = ({ layerName = 'utilities' } = {}) => {
 	return {
 		postcssPlugin: "postcss-tinywind",
-    async Once(root) {
+    async Once(root, { result }) {
+			 if (injectedOnce) return;
+
 			const configPath = path.resolve(process.cwd(), CONFIG_FILE_NAME);
 
 			const explorer = cosmiconfig(CONFIG_ID)
-			const result = await explorer.load(
+			const configResult = await explorer.load(
 				configPath
 			)
 
-			if (!result) {
-				console.log(`Tinywind config not found in ${configPath}`)
+			if (!configResult) {
+				result.warn(
+          `[postcss-tinywind] Could not load config file: ${configPath}`
+        )
 				return
 			}
 
-			const content = result.config.classes.map(cls => cls.css).join('\n')
-      const globalRoot = postcss.parse(content);
-			root.prepend(globalRoot);
+			result.messages.push({
+				type: "dependency",
+				plugin: "postcss-tinywind",
+				file: configPath,
+			});
+
+			const content = configResult.config.classes.map(cls => cls.css).join('\n')
+
+			const layer = postcss.atRule({ name: 'layer', params: layerName })
+
+      const tinywindClasses = postcss.parse(content);
+			layer.append(tinywindClasses)
+			root.prepend(layer);
     }
 	}
 }
