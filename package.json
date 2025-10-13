@@ -1,0 +1,41 @@
+{
+  "name": "@alesmenzel/postcss-tinywind",
+  "version": "1.0.0",
+  "description": "PostCSS plugin to generate Tinywind classes.",
+  "type": "module",
+  "main": "./postcss-tinywind.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "pretest": "npm run lint",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alesmenzel/postcss-tinywind"
+  },
+  "keywords": [
+    "postcss",
+    "plugin",
+    "css",
+    "layer"
+  ],
+  "author": "Aleš Menzel (alesmenzel@gmail.com)",
+  "license": "MIT",
+  "dependencies": {
+    "cosmiconfig": "^9.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.37.0",
+    "globals": "^16.4.0",
+    "jest": "^30.2.0",
+    "postcss": "*"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
+  },
+  "files": [
+    "postcss-tinywind.js"
+  ]
+}
